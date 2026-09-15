@@ -1,17 +1,19 @@
 [versions]
 springboot-dependency-management = "1.1.7"
-springboot-framework = "4.1.0"
+springboot-framework = "4.1.1"
 uuid-creator = "6.1.1"
 sentry = "6.2.0"
 reckon = "2.0.0"
 catalogUpdater = "1.1.0"
 jetbrains-annotations = "26.1.0"
-anisekai-scheduler = "1.4.0"
+anisekai-scheduler = "1.5.0"
+anisekai-wireless = "4.0.0-rc.2"
 anisekai-ffmpeg = "1.0.0"
 
 [libraries]
 api-anisekai-ffmpeg = { module = "fr.anisekai:ffmpeg4j", version.ref = "anisekai-ffmpeg" }
 api-anisekai-scheduler = { module = "fr.anisekai:scheduler", version.ref = "anisekai-scheduler" }
+api-anisekai-wireless = { module = "fr.anisekai:wireless", version.ref = "anisekai-wireless" }
 dev-annotations-jetbrains = { module = "org.jetbrains:annotations", version.ref = "jetbrains-annotations" }
 spring-restclient = { module = "org.springframework.boot:spring-boot-starter-restclient" }
 spring-webmvc = { module = "org.springframework.boot:spring-boot-starter-webmvc" }
@@ -29,7 +31,8 @@ spring-dependencyManagement = { id = "io.spring.dependency-management", version.
 [bundles]
 anisekai = [
     "api-anisekai-ffmpeg",
-    "api-anisekai-scheduler"
+    "api-anisekai-scheduler",
+    "api-anisekai-wireless"
 ]
 
 springboot = [

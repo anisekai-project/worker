@@ -41,7 +41,7 @@ sentry {
     includeSourceContext = true
 
     org = 'anisekai'
-    projectName = 'service'
+    projectName = 'worker'
     authToken = providers.gradleProperty('sentry.authToken')
             .orElse(providers.environmentVariable('SENTRY_AUTH_TOKEN'))
             .getOrNull()
