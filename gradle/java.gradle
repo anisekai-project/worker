@@ -1,0 +1,46 @@
+import java.nio.charset.StandardCharsets
+import java.time.ZonedDateTime
+import java.time.format.DateTimeFormatter
+
+java {
+    toolchain {
+        languageVersion = JavaLanguageVersion.of(25)
+    }
+    withJavadocJar()
+    withSourcesJar()
+}
+
+def generalCharset = StandardCharsets.UTF_8.name()
+
+tasks.withType(JavaCompile).configureEach {
+    options.encoding = generalCharset
+    options.compilerArgs += ['-Xlint:deprecation', '-Xlint:unchecked']
+    dependsOn tasks.named('generateJava')
+}
+
+javadoc {
+    options.encoding = generalCharset
+    if (JavaVersion.current().isJava9Compatible()) {
+        options.addBooleanOption('html5', true)
+    }
+}
+
+// Allow templating for versioning
+sourceSets {
+    template {
+        java {
+            srcDir 'src/template/java'
+        }
+    }
+}
+
+
+tasks.register('generateJava', Copy) {
+    def context = [version: project.version.toString(), date: ZonedDateTime.now().format(DateTimeFormatter.ISO_DATE_TIME)]
+    inputs.properties(context)
+    from sourceSets.template.java.srcDirs
+    into layout.buildDirectory.dir("generated/java")
+    expand(context)
+}
+
+sourceSets.main.java.srcDir(tasks.named('generateJava'))

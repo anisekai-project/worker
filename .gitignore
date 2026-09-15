@@ -1,0 +1,9 @@
+# Gradle exclusion
+.gradle/
+build/
+
+# Runtime exclusion
+/data/
+.env
+.*.env
+/db/dump.sql

@@ -1,0 +1,41 @@
+reckon {
+    defaultInferredScope = 'patch'
+    stages('beta', 'rc', 'release')
+    scopeCalc = calcScopeFromProp() | calcScopeFromCommitMessages()
+    stageCalc = calcStageFromProp()
+}
+
+def scopes = ['major', 'minor', 'patch']
+def stages = [
+        beta   : 'beta',
+        rc     : 'candidate',
+        release: 'release'
+]
+
+gradle.startParameter.taskNames.each { taskName ->
+    if (taskName.startsWith("tag")) {
+        def nameWithoutTag = taskName.replace("tag", "")
+
+        stages.each { stageValue, stageName ->
+            if (nameWithoutTag.endsWith(stageName.capitalize())) {
+                def scopeName = nameWithoutTag.replace(stageName.capitalize(), "").toLowerCase() // "minor"
+
+                if (scopes.contains(scopeName)) {
+                    project.reckon.scope.set(scopeName)
+                    project.reckon.stage.set(stageValue)
+                }
+            }
+        }
+    }
+}
+
+stages.each { stage, name ->
+    scopes.each { scope ->
+        tasks.register("tag${scope.capitalize()}${name.capitalize()}") {
+            group = "tagging.${name}"
+            description = "Create a version tag (${name} ${scope})"
+
+            dependsOn reckonTagCreate
+        }
+    }
+}
