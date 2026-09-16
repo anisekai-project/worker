@@ -1,0 +1,38 @@
+spring:
+  application:
+    name: worker
+  config:
+    import: optional:file:.env[.properties]
+
+anisekai:
+  worker:
+    api-url: ${ANISEKAI_API_URL:http://localhost:8080}
+    api-key: ${ANISEKAI_API_KEY:}
+    worker-name: ${WORKER_NAME:${HOSTNAME:worker}}
+    factories: ${WORKER_FACTORIES:media:convert}
+    poll-interval: ${WORKER_POLL_INTERVAL:10s}
+    heartbeat-interval: ${WORKER_HEARTBEAT_INTERVAL:60s}
+    connect-timeout: ${WORKER_CONNECT_TIMEOUT:10s}
+    read-timeout: ${WORKER_READ_TIMEOUT:300s}
+    max-retries: ${WORKER_MAX_RETRIES:3}
+    retry-base-delay: ${WORKER_RETRY_BASE_DELAY:1s}
+    scratch-dir: ${WORKER_SCRATCH_DIR:${java.io.tmpdir}/anisekai-worker}
+    conversion-timeout: ${WORKER_CONVERSION_TIMEOUT:3h}
+    log-level: ${WORKER_LOG_LEVEL:INFO}
+
+logging:
+  level:
+    fr.anisekai: ${LOG_APPLICATION_LEVEL:INFO}
+    fr.anisekai.web: ${LOG_API_LEVEL:WARN}
+    fr.alexpado: ${LOG_LIBRARY_LEVEL:WARN}
+    net.dv8tion: ${LOG_LIBRARY_LEVEL:WARN}
+    root: ${LOG_FRAMEWORK_LEVEL:WARN}
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info
+  endpoint:
+    health:
+      show-details: always

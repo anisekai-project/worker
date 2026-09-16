@@ -28,6 +28,8 @@ dependencies {
     implementation(libs.bundles.springboot)
 
     implementation(libs.dev.annotations.jetbrains)
+    implementation(libs.spring.actuator)
+    annotationProcessor(libs.spring.config.processor)
 
     testImplementation(libs.bundles.springboot.test)
     testRuntimeOnly(libs.testing.junit)
