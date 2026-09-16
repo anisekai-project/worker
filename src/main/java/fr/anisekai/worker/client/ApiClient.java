@@ -258,34 +258,4 @@ public class ApiClient {
         }
     }
 
-    @FunctionalInterface
-    public interface RunnableWithException {
-        void run() throws TransientApiException, PermanentApiException;
-    }
-
-    public static class TransientApiException extends RuntimeException {
-        private final HttpStatusCode status;
-
-        public TransientApiException(String message, HttpStatusCode status) {
-            super(message);
-            this.status = status;
-        }
-
-        public HttpStatusCode getStatus() {
-            return status;
-        }
-    }
-
-    public static class PermanentApiException extends RuntimeException {
-        private final HttpStatusCode status;
-
-        public PermanentApiException(String message, HttpStatusCode status) {
-            super(message);
-            this.status = status;
-        }
-
-        public HttpStatusCode getStatus() {
-            return status;
-        }
-    }
 }

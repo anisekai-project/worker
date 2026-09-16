@@ -5,6 +5,8 @@ import fr.anisekai.scheduler.tasking.data.TaskMeta;
 import fr.anisekai.scheduler.tasking.interfaces.factories.ClientFactory;
 import fr.anisekai.scheduler.tasking.interfaces.factories.FactoryRegistry;
 import fr.anisekai.worker.client.ApiClient;
+import fr.anisekai.worker.client.PermanentApiException;
+import fr.anisekai.worker.client.TransientApiException;
 import fr.anisekai.worker.config.WorkerProperties;
 import fr.anisekai.worker.dto.TaskSummary;
 import fr.anisekai.worker.dto.WorkerDirective;
@@ -171,11 +173,11 @@ public class WorkerLoop implements SmartLifecycle {
             }
 
         } catch (Exception e) {
-            if (e instanceof ApiClient.PermanentApiException) {
+            if (e instanceof PermanentApiException) {
                 LOG.error("Permanent API error, stopping worker: {}", e.getMessage());
                 // Re-throw to trigger container restart
                 throw e;
-            } else if (e instanceof ApiClient.TransientApiException) {
+            } else if (e instanceof TransientApiException) {
                 LOG.warn("Transient API error during tick: {}", e.getMessage());
             } else {
                 LOG.error("Unexpected error during tick", e);
