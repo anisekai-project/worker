@@ -61,11 +61,12 @@ Key settings:
 | Heartbeat interval | `WORKER_HEARTBEAT_INTERVAL` | `60s` | How often to ping while busy |
 | Connect timeout | `WORKER_CONNECT_TIMEOUT` | `10s` | HTTP connect timeout |
 | Read timeout | `WORKER_READ_TIMEOUT` | `300s` | HTTP read timeout |
+| Control timeout | `WORKER_CONTROL_TIMEOUT` | `30s` | Max wait for heartbeat and completion responses |
 | Max retries | `WORKER_MAX_RETRIES` | `3` | Max retries for transient failures |
 | Retry base delay | `WORKER_RETRY_BASE_DELAY` | `1s` | Base delay for exponential backoff |
 | Scratch dir | `WORKER_SCRATCH_DIR` | `$TMPDIR/anisekai-worker` | Directory for temporary files |
-| Conversion timeout | `WORKER_CONVERSION_TIMEOUT` | `3h` | Max time for a single conversion |
-| Log level | `WORKER_LOG_LEVEL` | `INFO` | Log level for the application |
+| Conversion timeout | `WORKER_CONVERSION_TIMEOUT` | `3h` | Max time for a conversion, capped by the shared handler at 3h |
+| Shutdown timeout | `WORKER_SHUTDOWN_TIMEOUT` | `30s` | Max time to wait for task cancellation during shutdown |
 
 ### Docker
 

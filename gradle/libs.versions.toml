@@ -10,7 +10,6 @@ anisekai-scheduler = "1.5.0"
 anisekai-wireless = "4.0.0-rc.3"
 anisekai-ffmpeg = "1.1.0"
 springdoc = "3.1.1"
-jackson = "2.17.1"
 junit-bom = "6.2.0"
 
 [libraries]
@@ -26,7 +25,6 @@ spring-validation = { module = "org.springframework.boot:spring-boot-starter-val
 testing-spring-webmvc = { module = "org.springframework.boot:spring-boot-starter-webmvc-test" }
 testing-spring-restclient = { module = "org.springframework.boot:spring-boot-starter-restclient-test" }
 testing-junit = { module = "org.junit.platform:junit-platform-launcher" }
-jackson-databind = { module = "com.fasterxml.jackson.core:jackson-databind", version.ref = "jackson" }
 junit-bom = { module = "org.junit:junit-bom", version.ref = "junit-bom" }
 
 [plugins]
@@ -47,7 +45,6 @@ springboot = [
     "spring-restclient",
     "spring-webmvc",
     "spring-actuator",
-    "spring-config-processor",
     "spring-validation"
 ]
 

@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.UUID;
 
 public record WorkerPingRequest(
+        UUID instanceId,
         List<String> factoryNames,
         String workerName,
         UUID currentTaskId

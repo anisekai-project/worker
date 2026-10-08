@@ -14,11 +14,12 @@ import org.springframework.test.context.TestPropertySource;
         "anisekai.worker.heartbeat-interval=60s",
         "anisekai.worker.connect-timeout=10s",
         "anisekai.worker.read-timeout=300s",
+        "anisekai.worker.control-timeout=30s",
         "anisekai.worker.max-retries=3",
         "anisekai.worker.retry-base-delay=1s",
         "anisekai.worker.scratch-dir=/tmp/anisekai-worker-test",
         "anisekai.worker.conversion-timeout=3h",
-        "anisekai.worker.log-level=INFO"
+        "anisekai.worker.shutdown-timeout=30s"
 })
 class WorkerApplicationTests {
 

@@ -9,6 +9,9 @@ plugins {
 
 group = 'fr.anisekai'
 
+def sentryAuthToken = providers.gradleProperty('sentry.authToken')
+        .orElse(providers.environmentVariable('SENTRY_AUTH_TOKEN'))
+
 apply from: 'gradle/reckon.gradle'
 apply from: 'gradle/java.gradle'
 
@@ -44,9 +47,7 @@ sentry {
 
     org = 'anisekai'
     projectName = 'worker'
-    authToken = providers.gradleProperty('sentry.authToken')
-            .orElse(providers.environmentVariable('SENTRY_AUTH_TOKEN'))
-            .getOrNull()
+    authToken = sentryAuthToken.getOrNull()
 }
 
 // Thanks, Sentry (pls fix your plugin idk)
@@ -57,4 +58,8 @@ tasks.named('sourcesJar') {
 
 tasks.matching { it.name.contains("sentry") || it.name.contains("Sentry") }.configureEach {
     mustRunAfter('generateJava')
+}
+
+tasks.matching { it.name.startsWith("sentryUpload") }.configureEach {
+    onlyIf { sentryAuthToken.isPresent() }
 }
