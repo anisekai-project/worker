@@ -11,6 +11,8 @@ group = 'fr.anisekai'
 
 def sentryAuthToken = providers.gradleProperty('sentry.authToken')
         .orElse(providers.environmentVariable('SENTRY_AUTH_TOKEN'))
+        .map { it.trim() }
+        .filter { !it.isEmpty() }
 
 apply from: 'gradle/reckon.gradle'
 apply from: 'gradle/java.gradle'
