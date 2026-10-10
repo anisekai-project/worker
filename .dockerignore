@@ -1,0 +1,8 @@
+.env
+.git
+.gradle
+.idea
+build
+node_modules
+result
+*.iml
